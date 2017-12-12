@@ -15,7 +15,7 @@ var net = require('net');
 var server = net.createServer();  
 server.on('connection', handleConnection);
 
-server.listen(13366, function() {  
+server.listen(13366, "0.0.0.0", function() {  
   console.log('server listening to %j', server.address());
 });
 
@@ -42,7 +42,7 @@ function handleConnection(conn) {
   function onConnError(err) {
     console.log('Connection %s error: %s', remoteAddress, err.message);
   }
-
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
