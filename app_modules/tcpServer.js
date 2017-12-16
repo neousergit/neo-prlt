@@ -1,8 +1,9 @@
 var net = require('net');
 var configTcpServer = require("../config/tcpServer");
-
 var server = net.createServer();
 server.on('connection', handleConnection);
+var DeviceStatusDatastoreDAO = require("../dao/deviceStatusDatastoreDAO");
+var DeviceStatusServices = require("../services/deviceStatusServices")(DeviceStatusDatastoreDAO);
 
 server.listen(configTcpServer.port, "0.0.0.0", function() {
   console.log('server listening to %j', server.address());
@@ -25,6 +26,9 @@ function handleConnection(conn) {
       console.log("ERROR");
       return conn.write("ERROR");
     }
+    DeviceStatusServices.save(obj, function(err){
+      if(err) console.log("ERROR Trying to save Device Status")
+    });
     conn.write("OK");
   }
   
