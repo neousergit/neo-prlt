@@ -16,10 +16,16 @@ function handleConnection(conn) {
   conn.on('data', onConnData);
   conn.once('close', onConnClose);
   conn.on('error', onConnError);
+  conn.setEncoding('utf8');
   
   function onConnData(d) {
-    console.log('connection data from %s: %j', remoteAddress, d);
-    conn.write(d);
+    try{
+      var obj = JSON.parse(d);
+    } catch (err) {
+      console.log("ERROR");
+      return conn.write("ERROR");
+    }
+    conn.write("OK");
   }
   
   function onConnClose() {
