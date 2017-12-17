@@ -16,7 +16,7 @@ module.exports = {
             key: deviceStatusKey,
             data: deviceStatus
         };
-        entity.timestamp = new Date();
+        entity.data.timestamp = new Date();
         
         datastore.save(entity).then(() => {
             console.log(`deviceStatus ${deviceStatusKey.id} created successfully.`);
