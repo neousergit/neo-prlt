@@ -16,6 +16,7 @@ module.exports = {
             key: deviceStatusKey,
             data: deviceStatus
         };
+        entity.timestamp = new Date();
         
         datastore.save(entity).then(() => {
             console.log(`deviceStatus ${deviceStatusKey.id} created successfully.`);
@@ -24,5 +25,26 @@ module.exports = {
             console.error('ERROR:', err);
             callback(err);
         });
-    }
+    },
+    getByUid: function(uid, callback){
+        const queryByUid = datastore.createQuery(KIND_DEVICE_STATUS)
+            .filter('uid', '=', uid);
+        datastore.runQuery(queryByUid).then((results) => {
+            const list = results[0];
+            callback(null, list);
+        }).catch((err) => {
+            console.error('ERROR:', err);
+            callback(err);
+        });;
+    },
+    list: function(callback){
+        const queryByUid = datastore.createQuery(KIND_DEVICE_STATUS)
+        datastore.runQuery(queryByUid).then((results) => {
+            const list = results[0];
+            callback(null, list);
+        }).catch((err) => {
+            console.error('ERROR:', err);
+            callback(err);
+        });;
+    },
 }
