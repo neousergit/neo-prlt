@@ -2,7 +2,8 @@ var Datastore = require('@google-cloud/datastore');
 var configDatastore = require("../config/dataStore");
 
 var datastore = new Datastore({
-  projectId: configDatastore.id_project
+  projectId: configDatastore.id_project,
+  keyFilename: configDatastore.path_file
 });
 
 var KIND_DEVICE_STATUS = "DeviceStatus";
@@ -13,21 +14,7 @@ module.exports = {
         const deviceStatusKey = datastore.key(KIND_DEVICE_STATUS);
         const entity = {
             key: deviceStatusKey,
-            data: [
-                {
-                    name: 'created',
-                    value: new Date().toJSON()
-                },
-                {
-                    name: 'description',
-                    value: 'description',
-                    excludeFromIndexes: true
-                },
-                {
-                    name: 'done',
-                    value: false
-                }
-            ]
+            data: deviceStatus
         };
         
         datastore.save(entity).then(() => {
