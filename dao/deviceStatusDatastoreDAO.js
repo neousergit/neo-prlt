@@ -19,7 +19,7 @@ module.exports = {
         entity.data.timestamp = new Date();
         if(deviceStatus.simid){
             if(deviceStatus.simid.stringValue){
-                entity.data.simid = entity.data.simid.stringValue;
+                entity.data.simid = deviceStatus.simid.stringValue;
             }
         }
         
