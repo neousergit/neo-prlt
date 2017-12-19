@@ -17,14 +17,8 @@ module.exports = {
             data: deviceStatus
         };
         entity.data.timestamp = new Date();
-        console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwww")
-        console.log(deviceStatus.prelogin.simid)
-        console.log(deviceStatus.prelogin.simid.stringValue)
-        console.log("wwwwwwwwwwwwwwwwwwww")
         if(deviceStatus.prelogin.simid){
-            if(deviceStatus.prelogin.simid.stringValue){
-                entity.data.simid = deviceStatus.prelogin.simid.stringValue;
-            }
+            entity.data.simid = deviceStatus.prelogin.simid;
         }
         
         datastore.save(entity).then(() => {
