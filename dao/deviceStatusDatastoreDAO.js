@@ -17,6 +17,11 @@ module.exports = {
             data: deviceStatus
         };
         entity.data.timestamp = new Date();
+        if(entity.data.simid){
+            if(entity.data.simid.stringValue){
+                entity.data.simid = entity.data.simid.stringValue;
+            }
+        }
         
         datastore.save(entity).then(() => {
             console.log(`deviceStatus ${deviceStatusKey.id} created successfully.`);
@@ -35,16 +40,16 @@ module.exports = {
         }).catch((err) => {
             console.error('ERROR:', err);
             callback(err);
-        });;
+        });
     },
     list: function(callback){
-        const queryByUid = datastore.createQuery(KIND_DEVICE_STATUS)
+        const queryByUid = datastore.createQuery(KIND_DEVICE_STATUS);
         datastore.runQuery(queryByUid).then((results) => {
             const list = results[0];
             callback(null, list);
         }).catch((err) => {
             console.error('ERROR:', err);
             callback(err);
-        });;
+        });
     },
-}
+};

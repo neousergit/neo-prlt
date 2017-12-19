@@ -12,7 +12,7 @@ module.exports = function(deviceStatusDAO){
                 return callback(null, list);
             });
         },
-        list: function(callback){
+        list: function(params, callback){
             deviceStatusDAO.list(function(err, list){
                 if(err){return callback(err)}
                 return callback(null, list);
