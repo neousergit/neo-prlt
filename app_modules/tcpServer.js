@@ -26,10 +26,17 @@ function handleConnection(conn) {
       console.log("ERROR");
       return conn.write("ERROR");
     }
-    DeviceStatusServices.save(obj, function(err){
-      if(err) console.log("ERROR Trying to save Device Status")
+    DeviceStatusServices.save(obj, function(err, id, entity){
+      if(err) return console.log("ERROR Trying to save Device Status");
+      
+      DeviceStatusServices.lookForFirmwareUpdate(entity, function(err, firmwareData){
+        if(err) return console.log("ERROR Trying to look for firmaware update");
+        if(firmwareData === null){
+          conn.write("Ok, no update");
+        }
+        conn.write(firmwareData);
+      });
     });
-    conn.write("OK");
   }
   
   function onConnClose() {

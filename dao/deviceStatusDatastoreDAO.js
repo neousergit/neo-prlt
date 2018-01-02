@@ -49,5 +49,10 @@ module.exports = {
             console.error('ERROR:', err);
             callback(err);
         });
-    },
+    },//TODO MAYBE READ FROM A DATABASE
+    getDeviceTypes: function(){
+        return {
+            SA2100: "SA2100",
+        }
+    }
 };
