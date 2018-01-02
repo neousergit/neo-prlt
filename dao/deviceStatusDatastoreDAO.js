@@ -30,13 +30,24 @@ module.exports = {
         });
     },
     getByUid: function(uid, params, callback){
-        console.log("33333333333333333333333")
-        console.log(params);
-        console.log("33333333333333333333333")
         const queryByUid = datastore.createQuery(TYPE_DEVICE_STATUS)
             .filter('timestamp', '>', params.initialDate)
             .filter('timestamp', '<', params.finalDate)
             .filter('uid', '=', uid);
+            
+        datastore.runQuery(queryByUid).then((results) => {
+            const list = results[0];
+            callback(null, list);
+        }).catch((err) => {
+            console.error('ERROR:', err);
+            callback(err);
+        });
+    },
+    getBySimid: function(simid, params, callback){
+        const queryByUid = datastore.createQuery(TYPE_DEVICE_STATUS)
+            .filter('timestamp', '>', params.initialDate)
+            .filter('timestamp', '<', params.finalDate)
+            .filter('simid', '=', simid);
             
         datastore.runQuery(queryByUid).then((results) => {
             const list = results[0];

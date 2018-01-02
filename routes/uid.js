@@ -6,8 +6,15 @@ var DeviceStatusServices = require("../services/deviceStatusServices")(DeviceSta
 
 var ParamsHelper = require("../helpers/paramsHelper");
 
+router.get('/', function(req, res, next) {
+  return res.send({ code: -2, data: null, message: "UID not informed"});
+});
+
 router.get('/:uid', function(req, res, next) {
   var uid = req.params.uid;
+  if(!uid){
+    return res.send({ code: -2, data: null, message: "UID not informed"});
+  }
   
   var params = {};
   //ACCEPTED FORMAT FOR DATE YYYYMMDD
