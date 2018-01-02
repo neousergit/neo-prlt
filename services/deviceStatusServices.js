@@ -10,14 +10,14 @@ module.exports = function(deviceStatusDAO){
                 return callback(null, idSaved, entity);
             });
         },
-        getByUid: function(uid, callback){
-            deviceStatusDAO.getByUid(uid, function(err, list){
+        getByUid: function(uid, params, callback){
+            deviceStatusDAO.getByUid(uid, params, function(err, list){
                 if(err){return callback(err)}
                 return callback(null, list);
             });
         },
         list: function(params, callback){
-            deviceStatusDAO.list(function(err, list){
+            deviceStatusDAO.list(params, function(err, list){
                 if(err){return callback(err)}
                 return callback(null, list);
             });

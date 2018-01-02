@@ -2,6 +2,7 @@ var GeneralHelper = require("../helpers/generalHelper");
 
 module.exports = {
     prepareParams: function(strInitialDate, strFinalDate, strInitialTime, strFinalTime){
+        console.log(strInitialDate, strFinalDate, strInitialTime, strFinalTime);
         if(strInitialDate){
             if(GeneralHelper.validateDateYYYYMMDD(strInitialDate)){
                 var year = strInitialDate.substring(0,4);
@@ -11,9 +12,13 @@ module.exports = {
             } else {
                 return null;
             }
+        } else {
+            var initialDate = new Date();
         }
+        initialDate.setHours(0);
+        initialDate.setMinutes(0);
         if(strFinalDate){
-            if(GeneralHelper.validateDate(strFinalDate)){
+            if(GeneralHelper.validateDateYYYYMMDD(strFinalDate)){
                 var year = strFinalDate.substring(0,4);
                 var month = strFinalDate.substring(4,6) -1;
                 var day = strFinalDate.substring(6,8);
@@ -21,7 +26,11 @@ module.exports = {
             } else {
                 return null;
             }
+        } else {
+            var finalDate = new Date();
         }
+        finalDate.setHours(23);
+        finalDate.setMinutes(59);
         if(strInitialTime){
             if(GeneralHelper.validateTimeHHMM(strInitialTime)){
                 var hour_i = strInitialTime.substring(0,2);
@@ -41,7 +50,7 @@ module.exports = {
         var params = {};
         if(hour_i){
             if(!initialDate){
-                return null;
+                initialDate = new Date();
             } else {
                 initialDate.setHours(hour_i);
                 initialDate.setMinutes(minutes_i);
@@ -49,7 +58,7 @@ module.exports = {
         }
         if(hour_f){
             if(!finalDate){
-                return null;
+                finalDate = new Date();
             } else {
                 finalDate.setHours(hour_f);
                 finalDate.setMinutes(minutes_f);
@@ -57,7 +66,7 @@ module.exports = {
         }
         if(initialDate && finalDate){
             var it = initialDate.getTime();
-            var ft = initialDate.getTime();
+            var ft = finalDate.getTime();
             if(it>ft){
                 return null;
             }

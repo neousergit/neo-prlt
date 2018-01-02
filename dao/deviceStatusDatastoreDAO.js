@@ -29,9 +29,15 @@ module.exports = {
             callback(err);
         });
     },
-    getByUid: function(uid, callback){
+    getByUid: function(uid, params, callback){
+        console.log("33333333333333333333333")
+        console.log(params);
+        console.log("33333333333333333333333")
         const queryByUid = datastore.createQuery(TYPE_DEVICE_STATUS)
+            .filter('timestamp', '>', params.initialDate)
+            .filter('timestamp', '<', params.finalDate)
             .filter('uid', '=', uid);
+            
         datastore.runQuery(queryByUid).then((results) => {
             const list = results[0];
             callback(null, list);
@@ -40,9 +46,11 @@ module.exports = {
             callback(err);
         });
     },
-    list: function(callback){
-        const queryByUid = datastore.createQuery(TYPE_DEVICE_STATUS);
-        datastore.runQuery(queryByUid).then((results) => {
+    list: function(params, callback){
+        const query = datastore.createQuery(TYPE_DEVICE_STATUS)
+        .filter('timestamp', '>', params.initialDate)
+        .filter('timestamp', '<', params.finalDate);
+        datastore.runQuery(query).then((results) => {
             const list = results[0];
             callback(null, list);
         }).catch((err) => {
