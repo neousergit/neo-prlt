@@ -1,5 +1,7 @@
 var GeneralServices = require("./generalServices");
 
+var PATH_FIRMWARE = "./app_data/firmware/";
+
 module.exports = function(deviceStatusDAO){
     return {
         save: function(deviceStatus, callback){
@@ -23,9 +25,8 @@ module.exports = function(deviceStatusDAO){
         lookForFirmwareUpdate: function(entity, callback){
             var deviceTypes = deviceStatusDAO.getDeviceTypes();
             if(deviceTypes[entity.deviceType]){
-                GeneralServices.readFile("/app_data/firmware/" + deviceTypes[entity.deviceType] + ".json", function(err, data){
-                    if(err){console.log(err);return callback(err)}
-                    console.log(data);
+                GeneralServices.readFile(PATH_FIRMWARE + deviceTypes[entity.deviceType] + ".json", function(err, data){
+                    if(err){ return callback(err) }
                     callback(null, data);
                 });
             } else {
