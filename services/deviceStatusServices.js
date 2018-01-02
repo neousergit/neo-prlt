@@ -1,9 +1,9 @@
 module.exports = function(deviceStatusDAO){
     return {
         save: function(deviceStatus, callback){
-            deviceStatusDAO.save(deviceStatus, function(err, saved){
+            deviceStatusDAO.save(deviceStatus, function(err, idSaved, entity){
                 if(err){return callback(err)}
-                return callback(null, saved);
+                return callback(null, idSaved, entity);
             });
         },
         getByUid: function(uid, callback){

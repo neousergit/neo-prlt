@@ -23,7 +23,7 @@ module.exports = {
         
         datastore.save(entity).then(() => {
             console.log(`deviceStatus ${deviceStatusKey.id} created successfully.`);
-            callback(null, deviceStatusKey.id);
+            callback(null, deviceStatusKey.id, entity);
         }).catch((err) => {
             console.error('ERROR:', err);
             callback(err);
