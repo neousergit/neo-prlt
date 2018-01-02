@@ -6,12 +6,12 @@ var datastore = new Datastore({
   keyFilename: configDatastore.path_file
 });
 
-var KIND_DEVICE_STATUS = "DeviceStatus";
+var TYPE_DEVICE_STATUS = "DeviceStatus";
 
 module.exports = {
     save: function(deviceStatus, callback){
         
-        const deviceStatusKey = datastore.key(KIND_DEVICE_STATUS);
+        const deviceStatusKey = datastore.key(TYPE_DEVICE_STATUS);
         const entity = {
             key: deviceStatusKey,
             data: deviceStatus
@@ -23,14 +23,14 @@ module.exports = {
         
         datastore.save(entity).then(() => {
             console.log(`deviceStatus ${deviceStatusKey.id} created successfully.`);
-            callback(null, deviceStatusKey.id, entity);
+            callback(null, deviceStatusKey.id, deviceStatus);
         }).catch((err) => {
             console.error('ERROR:', err);
             callback(err);
         });
     },
     getByUid: function(uid, callback){
-        const queryByUid = datastore.createQuery(KIND_DEVICE_STATUS)
+        const queryByUid = datastore.createQuery(TYPE_DEVICE_STATUS)
             .filter('uid', '=', uid);
         datastore.runQuery(queryByUid).then((results) => {
             const list = results[0];
@@ -41,7 +41,7 @@ module.exports = {
         });
     },
     list: function(callback){
-        const queryByUid = datastore.createQuery(KIND_DEVICE_STATUS);
+        const queryByUid = datastore.createQuery(TYPE_DEVICE_STATUS);
         datastore.runQuery(queryByUid).then((results) => {
             const list = results[0];
             callback(null, list);

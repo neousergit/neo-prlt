@@ -26,8 +26,10 @@ module.exports = function(deviceStatusDAO){
                 GeneralServices.readFile("/app_data/firmware/" + deviceTypes[entity.deviceType] + ".json", function(err, data){
                     if(err){console.log(err);return callback(err)}
                     console.log(data);
-                    callback(data);
+                    callback(null, data);
                 });
+            } else {
+                callback(null, null);
             }
         },
     }
