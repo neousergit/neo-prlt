@@ -22,7 +22,7 @@ router.get('/:simid', function(req, res, next) {
   if(!params){
     return res.send({ code: -1, data: null, message: "Invalid parameters"});
   }
-  DeviceStatusServices.getByUid(simid, params, function(err, list){
+  DeviceStatusServices.getBySimd(simid, params, function(err, list){
     if(err){ res.send({code: -1, data: null, message: err}) }
     res.send({ code: 0, data: list, message: "Data Ok"});
   });
