@@ -31,10 +31,9 @@ module.exports = {
     },
     getByUid: function(uid, params, callback){
         const queryByUid = datastore.createQuery(TYPE_DEVICE_STATUS)
+            .filter('uid', '=', uid)
             .filter('timestamp', '>', params.initialDate)
-            .filter('timestamp', '<', params.finalDate)
-            .filter('uid', '=', uid);
-            
+            .filter('timestamp', '<', params.finalDate);
         datastore.runQuery(queryByUid).then((results) => {
             const list = results[0];
             callback(null, list);
@@ -44,12 +43,12 @@ module.exports = {
         });
     },
     getBySimid: function(simid, params, callback){
-        const queryByUid = datastore.createQuery(TYPE_DEVICE_STATUS)
+        const queryBySimid = datastore.createQuery(TYPE_DEVICE_STATUS)
+            .filter('simid', '=', simid)
             .filter('timestamp', '>', params.initialDate)
-            .filter('timestamp', '<', params.finalDate)
-            .filter('simid', '=', simid);
+            .filter('timestamp', '<', params.finalDate);
             
-        datastore.runQuery(queryByUid).then((results) => {
+        datastore.runQuery(queryBySimid).then((results) => {
             const list = results[0];
             callback(null, list);
         }).catch((err) => {

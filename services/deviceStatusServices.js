@@ -16,7 +16,7 @@ module.exports = function(deviceStatusDAO){
                 return callback(null, list);
             });
         },
-        getByUid: function(simid, params, callback){
+        getBySimd: function(simid, params, callback){
             deviceStatusDAO.getBySimid(simid, params, function(err, list){
                 if(err){return callback(err)}
                 return callback(null, list);
